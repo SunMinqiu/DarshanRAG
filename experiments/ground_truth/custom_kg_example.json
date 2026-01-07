@@ -1,0 +1,53 @@
+{
+  "entities": [
+    {
+      "entity_name": "Job_12345",
+      "entity_type": "job",
+      "description": "HPC job with ID 12345, executed on cluster node-001, processed 500GB of data with MPI-IO patterns",
+      "source_id": "darshan_log_2025_01_01_job12345",
+      "file_path": "/path/to/logs/job12345.darshan"
+    },
+    {
+      "entity_name": "MPI-IO",
+      "entity_type": "io_pattern",
+      "description": "Message Passing Interface I/O pattern, commonly used for parallel file access in HPC applications",
+      "source_id": "darshan_log_2025_01_01_job12345",
+      "file_path": "/path/to/logs/job12345.darshan"
+    },
+    {
+      "entity_name": "POSIX",
+      "entity_type": "io_pattern",
+      "description": "Portable Operating System Interface I/O pattern, standard file I/O operations",
+      "source_id": "darshan_log_2025_01_02_job12346",
+      "file_path": "/path/to/logs/job12346.darshan"
+    },
+    {
+      "entity_name": "node-001",
+      "entity_type": "compute_node",
+      "description": "Compute node in HPC cluster, used for job execution",
+      "source_id": "darshan_log_2025_01_01_job12345",
+      "file_path": "/path/to/logs/job12345.darshan"
+    }
+  ],
+  "relationships": [
+    {
+      "src_id": "Job_12345",
+      "tgt_id": "MPI-IO",
+      "description": "Job 12345 uses MPI-IO pattern for parallel file access",
+      "keywords": "uses, io_pattern, parallel",
+      "weight": 1.0,
+      "source_id": "darshan_log_2025_01_01_job12345",
+      "file_path": "/path/to/logs/job12345.darshan"
+    },
+    {
+      "src_id": "Job_12345",
+      "tgt_id": "node-001",
+      "description": "Job 12345 executed on compute node node-001",
+      "keywords": "executed_on, runs_on",
+      "weight": 1.0,
+      "source_id": "darshan_log_2025_01_01_job12345",
+      "file_path": "/path/to/logs/job12345.darshan"
+    }
+  ],
+  "chunks": []
+}

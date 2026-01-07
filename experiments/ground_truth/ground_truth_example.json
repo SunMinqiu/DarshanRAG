@@ -1,0 +1,28 @@
+{
+  "q1": {
+    "expected_answer": "Job 12345 uses MPI-IO pattern for parallel file access",
+    "expected_entities": ["Job_12345", "MPI-IO"],
+    "expected_relations": [["Job_12345", "MPI-IO"]],
+    "metadata": {
+      "category": "io_pattern",
+      "source_ids": ["darshan_log_2025_01_01_job12345"]
+    }
+  },
+  "q2": {
+    "expected_answer": "Job 12345 uses MPI-IO pattern",
+    "expected_entities": ["Job_12345", "MPI-IO"],
+    "expected_relations": [["Job_12345", "MPI-IO"]],
+    "metadata": {
+      "category": "io_pattern_query"
+    }
+  },
+  "q3": {
+    "expected_answer": "Job 12345 executed on compute node node-001",
+    "expected_entities": ["Job_12345", "node-001"],
+    "expected_relations": [["Job_12345", "node-001"]],
+    "metadata": {
+      "category": "node_query",
+      "source_ids": ["darshan_log_2025_01_01_job12345"]
+    }
+  }
+}

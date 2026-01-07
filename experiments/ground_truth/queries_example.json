@@ -1,0 +1,26 @@
+[
+  {
+    "query_id": "q1",
+    "query": "What I/O pattern does job 12345 use?",
+    "metadata": {
+      "category": "io_pattern",
+      "expected_entities": ["Job_12345", "MPI-IO"]
+    }
+  },
+  {
+    "query_id": "q2",
+    "query": "Which jobs use MPI-IO?",
+    "metadata": {
+      "category": "io_pattern_query",
+      "expected_entities": ["Job_12345", "MPI-IO"]
+    }
+  },
+  {
+    "query_id": "q3",
+    "query": "What compute node was used for job 12345?",
+    "metadata": {
+      "category": "node_query",
+      "expected_entities": ["Job_12345", "node-001"]
+    }
+  }
+]

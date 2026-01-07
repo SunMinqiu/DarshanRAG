@@ -1,0 +1,26 @@
+# Requirements for Darshan KG Builder
+
+# Core dependencies
+lightrag-hku>=0.1.0
+
+# For OpenAI embeddings and LLM
+openai>=1.0.0
+
+# Standard library (no installation needed, listed for reference)
+# - argparse
+# - json
+# - os
+# - re
+# - hashlib
+# - pathlib
+# - typing
+# - datetime
+# - collections
+
+# Optional: for local embeddings (alternative to OpenAI)
+# sentence-transformers>=2.2.0
+# torch>=2.0.0
+
+# Optional: for visualization
+# networkx>=3.0
+# matplotlib>=3.7.0

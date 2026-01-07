@@ -1,0 +1,128 @@
+# LightRAG Experiment Harness Configuration
+# This file can be overridden by CLI arguments
+
+# ============================================================================
+# Model Configuration (OpenAI only)
+# ============================================================================
+models:
+  # Generation model (default: gpt-4o for compatibility, user may want gpt-4o-mini for testing)
+  gen_model: "gpt-4o"  # Change to "gpt-4o-mini" or "gpt-4-turbo" as needed
+  
+  # Embedding model
+  embed_model: "text-embedding-3-large"  # OpenAI embedding model
+  
+  # Judge model for evaluation (optional, default: off)
+  judge_model: null  # Set to model name if using LLM-based evaluation
+  
+  # OpenAI API configuration
+  api_key: null  # Set via OPENAI_API_KEY env var or CLI
+  base_url: "https://api.openai.com/v1"  # Can override for proxies
+  timeout: 150  # Request timeout in seconds
+
+# ============================================================================
+# Generation Parameters
+# ============================================================================
+generation:
+  temperature: 0.1  # Low for reproducibility
+  max_output_tokens: 2000  # Maximum tokens in response
+  seed: null  # Set to integer for deterministic generation, null otherwise
+  reasoning_effort: null  # If supported by API (e.g., "low", "medium", "high")
+  verbosity: null  # If supported by API wrapper
+
+# ============================================================================
+# Retrieval Parameters (QueryParam)
+# ============================================================================
+retrieval:
+  # Query modes to evaluate (must include "hybrid" and "mix")
+  modes: ["hybrid", "mix"]
+  
+  # Top-k settings
+  top_k: 60  # Number of entities/relations to retrieve
+  chunk_top_k: 20  # Number of text chunks (may have minimal effect if no chunks)
+  
+  # Token budgets
+  max_entity_tokens: 6000
+  max_relation_tokens: 8000
+  max_total_tokens: 30000
+  
+  # Reranking
+  enable_rerank: false  # Default false (OpenAI rerank not available via standard API)
+  
+  # Vector similarity threshold
+  cosine_better_than_threshold: 0.2
+
+# ============================================================================
+# LightRAG Pipeline / Storage Parameters
+# ============================================================================
+storage:
+  working_dir: "./experiments/rag_storage"  # Base working directory
+  workspace: ""  # Workspace name for data isolation (empty = default)
+  run_id: null  # If set, creates subdirectory per run (e.g., "run_20250101_120000")
+  
+  # Storage backends
+  graph_storage: "NetworkXStorage"  # Options: NetworkXStorage, Neo4JStorage, PGGraphStorage
+  vector_storage: "NanoVectorDBStorage"  # Options: NanoVectorDBStorage, PGVectorStorage, MilvusVectorDBStorage
+  kv_storage: "JsonKVStorage"  # Options: JsonKVStorage, PGKVStorage, RedisKVStorage
+  
+  # Caching
+  enable_llm_cache: true
+  enable_llm_cache_for_extract: true  # Cache for entity extraction
+  
+  # Concurrency (exposed even though we only import KG)
+  max_parallel_insert: 2
+
+# ============================================================================
+# Experiment Inputs
+# ============================================================================
+inputs:
+  kg_path: "./experiments/ground_truth/custom_kg.json"  # Path to custom_kg JSON file
+  queries_path: "./experiments/ground_truth/queries.json"  # Path to queries JSON file
+  ground_truth_path: "./experiments/ground_truth/ground_truth.json"  # Path to ground truth JSON file
+
+# ============================================================================
+# Handling "No Chunks"
+# ============================================================================
+chunks:
+  # If custom_kg has no chunks, whether to create synthetic minimal chunks
+  synthetic_chunks: false  # Default false, only enable if LightRAG errors without chunks
+  synthetic_chunk_template: "Summary for source_id: {source_id}"  # Template if synthetic_chunks=true
+
+# ============================================================================
+# Evaluation Settings
+# ============================================================================
+evaluation:
+  # Whether to run retrieval-only evaluation (diagnostics)
+  retrieval_only: false
+  
+  # Whether to run end-to-end generation evaluation
+  generation_eval: true
+  
+  # Output format
+  output_dir: "./experiments/results"
+  save_detailed_results: true  # Save full results JSON
+  save_summary: true  # Save summary CSV
+  
+  # Logging
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "./experiments/logs/experiment_{timestamp}.log"
+
+# ============================================================================
+# Provenance / Metadata
+# ============================================================================
+provenance:
+  # Whether to preserve source_id/file_path in logs and results
+  preserve_metadata: true
+  
+  # Whether to filter by source_id when evaluating (if ground truth includes source_id)
+  filter_by_source_id: false
+
+# ============================================================================
+# Reproducibility
+# ============================================================================
+reproducibility:
+  # Version information (automatically populated)
+  config_version: "1.0"
+  lightrag_version: null  # Auto-detected at runtime
+  
+  # Deterministic settings
+  deterministic_mode: true  # Ensures low temperature and fixed seeds where possible

@@ -1,0 +1,8 @@
+# Requirements for LightRAG Experiment Harness
+# Note: LightRAG dependencies should already be installed
+
+# Configuration
+pyyaml>=6.0.0
+
+# Already included in LightRAG but listed here for reference
+numpy>=1.24.0,<2.0.0
