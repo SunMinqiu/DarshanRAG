@@ -74,3 +74,9 @@ download_models_hf.py
 memory-bank
 .claude/CLAUDE.md
 .claude/
+
+# --- large experiment artifacts (do NOT version in git) ---
+experiments/kg_batches/
+experiments/lightrag_storage_2025_1_1/
+experiments/kg_2025-1-1_fixed.json
+
