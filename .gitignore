@@ -75,8 +75,41 @@ memory-bank
 .claude/CLAUDE.md
 .claude/
 
-# --- large experiment artifacts (do NOT version in git) ---
+# ============================================================
+# Darshan Specific - Experiment Data (DO NOT COMMIT)
+# ============================================================
+
+# Raw and parsed Darshan logs
+data/raw/
+data/parsed/
+data/archives/
+parsed-logs*/
+**/parsed-logs*/
+
+# Knowledge graphs (large JSON files)
+knowledge_graphs/
+*.json.large
+kg_*.json
+*_graph*.json
+darshan_graph*.json
+graph_*.json
+
+# Experimental results and storage
+experiments/results/
+experiments/storage/
+experiments/notebooks/.ipynb_checkpoints/
 experiments/kg_batches/
-experiments/lightrag_storage_2025_1_1/
-experiments/kg_2025-1-1_fixed.json
+experiments/lightrag_storage*/
+
+# Large archive files
+*.tar.gz
+*.zip
+darshan-*.tar.gz
+
+# Notebook outputs and checkpoints
+*.ipynb_checkpoints
+.ipynb_checkpoints/
+
+# IORAG legacy directory
+IORAG/
 
