@@ -1,0 +1,110 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║           Darshan Signal Extraction Tool - Quick Start                   ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+📁 Location: /users/Minqiu/DarshanRAG/experiments/
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  BASIC COMMANDS                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  1️⃣  Process Single File
+      python3 process_darshan_signals.py input.txt
+
+  2️⃣  Process Directory
+      python3 process_darshan_signals.py /path/to/logs/
+
+  3️⃣  Custom Output
+      python3 process_darshan_signals.py input.txt -o output.txt
+
+  4️⃣  Run Tests
+      bash test_signal_extraction.sh
+
+  5️⃣  Get Help
+      python3 process_darshan_signals.py --help
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  WHAT IT DOES                                                            ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  ✓ Extracts required metrics from Darshan logs
+  ✓ Computes 12 types of I/O anomaly signals
+  ✓ Preserves directory structure
+  ✓ Automatically names output files: *_signals_v1.txt
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  12 ANOMALY SIGNALS                                                      ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  🟥 HMD    - High Metadata Load
+  🟧 MSL    - Misaligned I/O
+  🟨 RMA    - Random Access
+  🟩 SHF    - Shared File Access
+  🟦 SML    - Small I/O
+  🟪 RDA    - Repetitive Data Access
+  🟫 RLIM   - Rank Load Imbalance
+  ⬛ SLIM   - Server Load Imbalance
+  🔵 MPNM   - Multi-Process without MPI
+  🟣 NC     - No Collective I/O
+  🟤 LLL    - Low-Level Library
+  ⚪ NOL    - No Issue
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  EXAMPLE WORKFLOW                                                        ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  cd /users/Minqiu/DarshanRAG/experiments
+
+  # Test with example file
+  python3 process_darshan_signals.py \
+    ../data/examples/Darshan_log_example.txt
+
+  # Process your logs
+  python3 process_darshan_signals.py /your/darshan/logs/
+
+  # View results
+  head -100 ../data/examples/Darshan_log_example_signals_v1.txt
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  OUTPUT FORMAT                                                           ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  Section 1: Original Metrics (Required Minimal Sufficient Set)
+    - POSIX_BYTES_READ/WRITTEN
+    - POSIX_READS/WRITES
+    - Access patterns, alignment, metadata, etc.
+
+  Section 2: Derived Anomaly Signals
+    - SIGNAL_HMD_meta_ops
+    - SIGNAL_SML_small_read_ratio
+    - SIGNAL_RMA_random_read_ratio
+    - And more...
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  DOCUMENTATION                                                           ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  📖 README_signals.md      - Full documentation
+  📋 USAGE_EXAMPLES.md      - Detailed examples
+  📝 SUMMARY.md             - Project summary
+  ⚡ QUICK_START.txt        - This file
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  REQUIREMENTS                                                            ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  ✓ Python 3.6+
+  ✓ Darshan log in text format (.txt)
+  ✓ No external dependencies needed
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  TESTED & READY                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+  ✅ All tests passed
+  ✅ Example file processed successfully
+  ✅ Output verified
+
+  Start processing your Darshan logs now!
+
+═══════════════════════════════════════════════════════════════════════════

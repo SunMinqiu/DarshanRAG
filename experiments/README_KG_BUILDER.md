@@ -1,482 +1,264 @@
 # Darshan Knowledge Graph Builder
 
-构建符合LightRAG custom_kg格式的Darshan日志知识图谱。
+This tool converts Darshan signal extraction output files into LightRAG's custom Knowledge Graph format for incident-level analysis and retrieval.
 
-## 📋 目录
+## Overview
 
-- [快速开始](#快速开始)
-- [功能特性](#功能特性)
-- [知识图谱Schema](#知识图谱schema)
-- [使用方法](#使用方法)
-- [示例](#示例)
-- [故障排除](#故障排除)
+The Darshan KG Builder processes Darshan log files (txt format) and constructs a knowledge graph with exactly 4 node types designed to support:
+- **Incident-level retrieval**: Each I/O record becomes a queryable incident
+- **Downstream computation**: All signal values preserved as node attributes
+- **Explainable answers**: Graph connectivity based on comparability (same app, filesystem, module)
 
----
+## Graph Schema
 
-## 🚀 快速开始
+### Node Types (Exactly 4)
 
-### 1. 构建知识图谱
+#### 1. Job
+- **Entity Name**: `Job_{jobid}`
+- **Attributes**:
+  - `job_id`: Darshan job identifier
+  - `nprocs`: Number of processes
+  - `runtime`: Total execution time (seconds)
+  - `exe`: Executable identifier
+  - `start_time`: Job start timestamp
+  - `end_time`: Job end timestamp
+- **Example**: `Job_3122490`
 
-```bash
-# 从单个log文件构建KG
-python build_darshan_kg.py --input_path /path/to/log.txt --output_path darshan_kg.json
+#### 2. Incident
+- **Entity Name**: `Incident_{module}_{record_id}_rank{rank}`
+- **Attributes**:
+  - `module`: HEATMAP | POSIX | STDIO | MPIIO
+  - `rank`: MPI rank
+  - `record_id`: Darshan record identifier
+  - All `SIGNAL_*` values as attributes (e.g., `total_read_events`, `read_bandwidth_avg`)
+  - Optional: `fs_type`, `mount_pt` (for POSIX/STDIO/MPIIO only)
+- **Example**: `Incident_POSIX_12345_rank0`
+- **Design Principle**: One incident = one Darshan record = minimum retrievable unit
 
-# 从文件夹构建KG（递归遍历所有.txt文件）
-python build_darshan_kg.py --input_path /path/to/logs/ --output_path darshan_kg.json
+#### 3. FileSystem
+- **Entity Name**: `FS_{fs_type}_{mount_pt_safe}`
+- **Attributes**:
+  - `fs_type`: Filesystem type (e.g., lustre, nfs, ext4)
+  - `mount_pt`: Mount point path
+- **Example**: `FS_lustre__home`
+- **Uniqueness**: Based on (fs_type, mount_pt) combination
 
-# 从父文件夹构建KG
-python build_darshan_kg.py --input_path /users/Minqiu/parsed-logs-2025-1-1/ --output_path darshan_graph1_2025-1-1.json
-```
+#### 4. Application
+- **Entity Name**: `App_{exe}`
+- **Attributes**:
+  - `exe`: Executable identifier
+- **Example**: `App_4068766220`
+- **Uniqueness**: One node per unique executable
 
-### 2. 加载到LightRAG
+### Edge Types
 
-```bash
-# 设置OpenAI API密钥
-export OPENAI_API_KEY='sk-...'
+#### 1. HAS_INCIDENT (Job → Incident)
+- **Keywords**: `job incident module`
+- **Weight**: 1.0
+- **Created for**: Every incident in the job
 
-# 加载KG并运行示例查询
-python load_darshan_kg.py --kg_path darshan_kg.json
+#### 2. ON_FS (Incident → FileSystem)
+- **Keywords**: `incident filesystem io_pattern`
+- **Weight**: 1.0
+- **Created only when**:
+  - Module is POSIX, STDIO, or MPIIO (NOT HEATMAP)
+  - `fs_type` is present and not "UNKNOWN"
+  - `mount_pt` is present and not "UNKNOWN"
 
-# 仅加载KG，不运行查询
-python load_darshan_kg.py --kg_path darshan_kg.json --no-queries
-```
+#### 3. RUNS (Job → Application)
+- **Keywords**: `job application executable`
+- **Weight**: 1.0
+- **Created for**: Every job-application pair
 
----
+#### 4. BELONGS_TO (Incident → Application)
+- **Keywords**: `incident application executable`
+- **Weight**: 1.0
+- **Created for**: Every incident in the job
 
-## ✨ 功能特性
+## Usage
 
-### 输入灵活性
-- ✅ **单个文件**: 处理单个`.txt`格式的Darshan日志
-- ✅ **文件夹**: 遍历指定文件夹中的所有日志
-- ✅ **递归遍历**: 自动递归搜索子文件夹中的所有`.txt`文件
-- ✅ **自定义输出路径**: 指定KG输出位置
-
-### KG构建特性
-- ✅ 符合LightRAG `custom_kg`格式
-- ✅ 完整的Schema支持（Job、Module、FileRecord、Phase、EventAnchor、Counter）
-- ✅ 保留所有counter数据（不丢失任何信息）
-- ✅ 自动推导Phase和EventAnchor
-- ✅ 智能文件角色识别（checkpoint/log/temp/data）
-- ✅ 时间锚点提取和对齐
-
----
-
-## 📊 知识图谱Schema
-
-### A. Job节点（作业层）
-
-**Primary Key**: `job_id`
-
-**MUST字段**:
-- `job_id`: 作业ID
-- `start_time`: 开始时间戳
-- `end_time`: 结束时间戳
-- `runtime_sec`: 运行时长（秒）
-- `nprocs`: 进程数
-- `log_version`: Darshan版本
-
-**SHOULD字段**:
-- `exe`: 可执行文件原始路径
-- `exe_norm`: 归一化可执行文件名
-- `uid`: 用户ID
-- `mount_table_digest`: 挂载表摘要
-
-**边关系**:
-- `(Job)-[:HAS_MODULE]->(Module)`
-
----
-
-### B. Module节点（模块层）
-
-**Primary Key**: `job_id + module_name`
-
-**MUST字段**:
-- `module_name`: 模块名称（POSIX/STDIO/MPIIO/H5F等）
-- `job_id`: 所属作业ID
-
-**SHOULD字段**:
-- `module_present`: 模块是否存在
-- `record_count`: 记录数量
-
-**边关系**:
-- `(Job)-[:HAS_MODULE]->(Module)`
-- `(Module)-[:HAS_RECORD]->(FileRecord)`
-
----
-
-### C. FileRecord节点（文件记录层）
-
-**Primary Key**: `job_id + module_name + record_id`
-
-**MUST字段**:
-- `job_id`, `module_name`, `record_id`
-- `file_path`: 文件路径
-- `rank`: 进程rank（-1表示共享文件）
-- `mount_pt`: 挂载点
-- `fs_type`: 文件系统类型
-
-**SHOULD字段**:
-- `is_shared`: 是否为共享文件（rank == -1）
-- `path_tokens`: 路径分词（便于检索）
-- `path_depth`: 路径深度
-- `file_role_hint`: 文件角色提示（data/checkpoint/temp/log/unknown）
-- `time_anchors`: 时间锚点
-
-**关键字段**:
-- ✅ **`counters_blob`**: JSON格式，保存该record的所有counter（细粒度数据）
-
-**边关系**:
-- `(Module)-[:HAS_RECORD]->(FileRecord)`
-- `(FileRecord)-[:HAS_PHASE]->(Phase)`
-- `(FileRecord)-[:HAS_COUNTER]->(Counter)` (可选)
-
----
-
-### D. Phase节点（时间段层，诊断核心）
-
-**Primary Key**: `job_id + module_name + record_id + phase_type`
-
-**MUST字段**:
-- `phase_type`: 阶段类型（open/read/write/close/meta）
-- `t_start`: 开始时间戳
-- `t_end`: 结束时间戳
-- `duration`: 持续时间
-- `bytes`: 字节数
-
-**SHOULD字段**:
-- `iops_est`: 估算IOPS
-- `bw_est`: 估算带宽
-- `is_sparse_time`: 时间戳是否稀疏
-
-**边关系**:
-- `(FileRecord)-[:HAS_PHASE]->(Phase)`
-- `(Phase)-[:CONTAINS_ANCHOR]->(EventAnchor)`
-
----
-
-### E. EventAnchor节点（时间点层，对齐/证据链）
-
-**Primary Key**: `job_id + module_name + record_id + kind`
-
-**MUST字段**:
-- `kind`: 事件类型（first_open/last_read等）
-- `timestamp`: 时间戳
-
-**SHOULD字段**:
-- `source_counter_name`: 来源counter名称
-- `confidence`: 置信度（1.0=原始提供；0.5=推导）
-
-**边关系**:
-- `(Phase)-[:CONTAINS_ANCHOR]->(EventAnchor)`
-
----
-
-### F. Counter节点（可选，用于结构化索引）
-
-**Primary Key**: `job_id + module_name + record_id + counter_name`
-
-**MUST字段**:
-- `counter_name`: Counter名称
-- `counter_type`: 类型（scalar/hist/topk/timestamp/rank_stat）
-- `value_json`: JSON格式的值
-
-**边关系**:
-- `(FileRecord)-[:HAS_COUNTER]->(Counter)`
-
----
-
-## 🔧 使用方法
-
-### 命令行参数
-
-#### `build_darshan_kg.py`
+### Command Line
 
 ```bash
-python build_darshan_kg.py [OPTIONS]
+# Single file
+python experiments/darshan_kg_builder.py \
+  -i data/examples/Darshan_log_example_signals_v2.2.txt \
+  -o output_kg.json
 
-必需参数:
-  --input_path PATH     Darshan日志路径（文件/文件夹/父文件夹）
+# Directory with txt files
+python experiments/darshan_kg_builder.py \
+  -i /path/to/logs_directory \
+  -o output_kg.json
 
-可选参数:
-  --output_path PATH    输出KG JSON文件路径（默认: darshan_kg.json）
+# Parent directory with subdirectories
+python experiments/darshan_kg_builder.py \
+  -i /path/to/parent_directory \
+  -o output_kg.json
 ```
 
-#### `load_darshan_kg.py`
-
-```bash
-python load_darshan_kg.py [OPTIONS]
-
-必需参数:
-  --kg_path PATH        KG JSON文件路径
-
-可选参数:
-  --working_dir PATH    LightRAG工作目录（默认: ./lightrag_darshan_storage）
-  --no-queries          跳过示例查询
-```
-
----
-
-## 📝 示例
-
-### 示例1: 处理单个log文件
-
-```bash
-# 1. 构建KG
-python build_darshan_kg.py \
-    --input_path /path/to/single_log.txt \
-    --output_path single_job_kg.json
-
-# 2. 加载到LightRAG
-export OPENAI_API_KEY='sk-...'
-python load_darshan_kg.py --kg_path single_job_kg.json
-```
-
-### 示例2: 处理整个文件夹
-
-```bash
-# 1. 构建KG（递归遍历所有.txt文件）
-python build_darshan_kg.py \
-    --input_path /users/Minqiu/parsed-logs-2025-1-1/ \
-    --output_path darshan_graph1_2025-1-1.json
-
-# 输出示例:
-# 🔍 Searching for Darshan logs in: /users/Minqiu/parsed-logs-2025-1-1/
-# ✅ Found 150 log file(s)
-# 📄 [1/150] Parsing: /users/Minqiu/parsed-logs-2025-1-1/job1.txt
-#    ✓ Extracted 3 modules
-# ...
-# 📊 Knowledge Graph Statistics:
-#    - Chunks: 150
-#    - Entities: 4523
-#    - Relationships: 8946
-
-# 2. 加载到LightRAG
-python load_darshan_kg.py \
-    --kg_path darshan_graph1_2025-1-1.json \
-    --working_dir ./rag_storage_2025_1_1
-```
-
-### 示例3: 程序化查询
+### Python API
 
 ```python
-import asyncio
+from darshan_kg_builder import DarshanKGBuilder
+
+# Initialize builder
+builder = DarshanKGBuilder()
+
+# Parse single file
+builder.parse_darshan_signal_file("path/to/log.txt")
+
+# Or parse directory
+builder.parse_darshan_directory("/path/to/logs")
+
+# Build LightRAG custom KG
+kg = builder.build_lightrag_kg(
+    source_id="my-darshan-logs",
+    file_path="/path/to/logs"
+)
+
+# Save to JSON
 import json
-from lightrag import LightRAG, QueryParam
-from lightrag.llm.openai import gpt_4o_mini_complete, openai_embed
-
-async def query_kg():
-    # 初始化LightRAG
-    rag = LightRAG(
-        working_dir='./lightrag_darshan_storage',
-        embedding_func=openai_embed,
-        llm_model_func=gpt_4o_mini_complete
-    )
-
-    await rag.initialize_storages()
-
-    # 查询示例
-    queries = [
-        "Which jobs accessed checkpoint files?",
-        "What is the I/O performance pattern for shared files?",
-        "Show me jobs with high read bandwidth on Lustre filesystem"
-    ]
-
-    for query in queries:
-        result = await rag.aquery(
-            query,
-            param=QueryParam(mode="hybrid")
-        )
-        print(f"Q: {query}")
-        print(f"A: {result}\n")
-
-    await rag.finalize_storages()
-
-asyncio.run(query_kg())
+with open("output_kg.json", "w") as f:
+    json.dump(kg, f, indent=2)
 ```
 
----
+### Integration with LightRAG
 
-## 🛠️ 故障排除
+```python
+import json
+from lightrag import LightRAG
 
-### 问题1: "No log files found!"
+# Load the generated KG
+with open("output_kg.json", "r") as f:
+    custom_kg = json.load(f)
 
-**原因**: 输入路径不存在或没有`.txt`文件
+# Initialize LightRAG
+rag = LightRAG(
+    working_dir="./darshan_rag_storage",
+    embedding_func=openai_embed,
+    llm_model_func=gpt_4o_mini_complete,
+)
 
-**解决**:
-```bash
-# 检查路径是否正确
-ls -la /path/to/logs/
+# Insert the custom KG
+await rag.ainsert_custom_kg(custom_kg)
 
-# 确保日志文件是.txt格式（darshan-parser输出）
-darshan-parser your_log.darshan > your_log.txt
+# Query incidents
+result = await rag.aquery(
+    "Which incidents had high read bandwidth on Lustre filesystem?",
+    param=QueryParam(mode="hybrid")
+)
 ```
 
-### 问题2: 插入KG很慢
+## Example Output Statistics
 
-**原因**: 需要为所有实体和关系生成embeddings（调用OpenAI API）
+For `Darshan_log_example_signals_v2.2.txt`:
+- **Entities**: 43 total
+  - 1 Job node
+  - 1 Application node
+  - 1 FileSystem node
+  - 40 Incident nodes (10 HEATMAP + 30 POSIX)
+- **Relationships**: 113 total
+  - 40 HAS_INCIDENT edges
+  - 30 ON_FS edges (only POSIX incidents)
+  - 1 RUNS edge
+  - 40 BELONGS_TO edges
+  - 2 Incident-Incident edges (same module/fs/app)
 
-**解决**:
-- ✅ 这是正常现象（参考之前的讨论）
-- ✅ 使用更快的embedding模型：`text-embedding-3-small`
-- ✅ 增加并发度（修改`embedding_func_max_async`参数）
-- ✅ 使用本地embedding模型（Sentence-Transformers）
+## Input Format
 
-### 问题3: "OPENAI_API_KEY not set"
+The tool expects Darshan signal extraction output format v2.2:
 
-**解决**:
-```bash
-export OPENAI_API_KEY='sk-your-api-key-here'
+```
+# jobid: 3122490
+# nprocs: 4
+# run time: 7451.1501
+# exe: 4068766220
+# start_time: 1735781151
+# end_time: 1735788602
+
+# mount point	fs type
+# /home	lustre
+
+# MODULE: HEATMAP
+# RECORD: 16592106915301738621 (rank=0)
+HEATMAP	0	16592106915301738621	SIGNAL_TOTAL_READ_EVENTS	1056203.0
+HEATMAP	0	16592106915301738621	SIGNAL_TOTAL_WRITE_EVENTS	0.0
+...
+
+# MODULE: POSIX
+# RECORD: 12345 (rank=0, mount=/home, fs=lustre)
+POSIX	0	12345	SIGNAL_READ_BANDWIDTH_AVG	123.45
+...
 ```
 
-### 问题4: 解析失败
+## Design Rationale
 
-**原因**: Darshan log格式不符合预期
+### Why These 4 Node Types?
 
-**解决**:
-```bash
-# 确保使用darshan-parser转换
-darshan-parser --all your_log.darshan > your_log.txt
+1. **Job**: Represents the top-level execution context
+2. **Incident**: Each record is independently retrievable for fine-grained analysis
+3. **FileSystem**: Groups incidents by storage backend for performance comparison
+4. **Application**: Groups incidents by executable for workload characterization
 
-# 检查log格式
-head -50 your_log.txt
+### Why Signals Are Attributes, Not Nodes?
+
+- **Incident-level retrieval**: User queries focus on "incidents with high bandwidth", not "bandwidth nodes"
+- **Downstream computation**: Raw signal values needed for aggregation (avg, max, percentile)
+- **Explainability**: Graph edges show relationships (same app/fs), not signal similarity
+- **Scalability**: Avoiding millions of signal nodes keeps the graph manageable
+
+### Why Connectivity = Comparability?
+
+Graph edges connect incidents that are **meaningfully comparable**:
+- Same Application → Same workload characteristics
+- Same FileSystem → Same storage performance context
+- Same Module → Same I/O abstraction level
+
+This enables queries like:
+- "Compare read patterns across ranks for this job"
+- "Find incidents with similar I/O characteristics on Lustre"
+- "Analyze POSIX-level performance for this application"
+
+## Query Examples
+
+```python
+# Find high-bandwidth incidents
+"Which incidents had read bandwidth over 1000 MB/s?"
+
+# Filesystem comparison
+"Compare average write bandwidth between Lustre and NFS filesystems"
+
+# Application analysis
+"What are the common I/O patterns for application 4068766220?"
+
+# Rank-level debugging
+"Which rank had the highest write activity entropy in job 3122490?"
+
+# Module-level insights
+"Show all POSIX incidents with more than 1000 read operations"
 ```
 
----
+## Troubleshooting
 
-## 📖 抽取规则（内置规则，确保数据一致性）
+### No entities generated
+- Check that input file follows Darshan signal extraction v2.2 format
+- Verify job metadata header is present (`# jobid:`, `# nprocs:`, etc.)
+- Ensure at least one MODULE section exists
 
-脚本遵循以下硬约束规则：
+### Missing filesystem relationships
+- ON_FS edges only created for POSIX/STDIO/MPIIO modules
+- HEATMAP incidents intentionally have no filesystem relationships
+- Check that mount table is present and fs_type/mount_pt are not "UNKNOWN"
 
-1. ✅ **永远不丢counter**: 所有`POSIX_*`, `STDIO_*`等字段原样进入`FileRecord.counters_blob`
+### Signal values are "NA"
+- Some signals may be undefined (division by zero, no activity)
+- These are preserved as string "NA(...)" to maintain data integrity
+- Filter these in downstream queries if needed
 
-2. ✅ **时间戳处理**:
-   - 如果存在`*_START_TIMESTAMP`/`*_END_TIMESTAMP`，必须生成`EventAnchor`
-   - 自动生成/更新对应`Phase`的`t_start`/`t_end`
+## Implementation Notes
 
-3. ✅ **Phase推导**:
-   - 优先从标量counter推导bytes/time/ops
-   - 其次才使用`t_end - t_start`
-
-4. ✅ **共享文件标识**:
-   - `rank == -1`的record标为`is_shared=true`
-   - 这是并行不均衡诊断的关键
-
-5. ✅ **缺失字段处理**:
-   - 不猜测数值
-   - 使用`null` + `confidence`标注
-   - 对Phase允许标注"unknown time range"
-
----
-
-## 📚 输出格式
-
-### KG JSON结构
-
-```json
-{
-  "chunks": [
-    {
-      "content": "Job job123 Summary: ...",
-      "source_id": "doc-job123",
-      "chunk_order_index": 1,
-      "file_path": "log.txt"
-    }
-  ],
-  "entities": [
-    {
-      "entity_name": "Job_job123",
-      "entity_type": "Job",
-      "description": "Job job123 executed app.exe with 256 processes for 3600 seconds",
-      "source_id": "doc-job123",
-      "file_path": "log.txt",
-      "properties": {
-        "job_id": "job123",
-        "start_time": 1704067200,
-        "end_time": 1704070800,
-        "runtime_sec": 3600,
-        "nprocs": 256,
-        "exe": "/path/to/app.exe",
-        "exe_norm": "app.exe"
-      }
-    },
-    {
-      "entity_name": "FileRecord_job123_POSIX_abc123",
-      "entity_type": "FileRecord",
-      "description": "File record abc123 for file /scratch/data.h5 (rank=0, shared=False)",
-      "source_id": "doc-job123",
-      "file_path": "log.txt",
-      "properties": {
-        "job_id": "job123",
-        "module_name": "POSIX",
-        "record_id": "abc123",
-        "file_path": "/scratch/data.h5",
-        "rank": 0,
-        "is_shared": false,
-        "file_role_hint": "data",
-        "counters_blob": {
-          "POSIX_BYTES_READ": 1048576000,
-          "POSIX_BYTES_WRITTEN": 524288000,
-          "POSIX_READ_START_TIMESTAMP": 1704067300,
-          "POSIX_READ_END_TIMESTAMP": 1704067600,
-          ...
-        }
-      }
-    }
-  ],
-  "relationships": [
-    {
-      "src_id": "Job_job123",
-      "tgt_id": "Module_job123_POSIX",
-      "description": "Job job123 uses module POSIX",
-      "keywords": "has_module uses",
-      "source_id": "doc-job123",
-      "file_path": "log.txt",
-      "weight": 1.0
-    }
-  ]
-}
-```
-
----
-
-## 🎯 下一步
-
-构建并加载KG后，你可以：
-
-1. **诊断I/O性能问题**:
-   ```python
-   result = await rag.aquery(
-       "Which jobs have low I/O bandwidth on shared files?",
-       param=QueryParam(mode="hybrid")
-   )
-   ```
-
-2. **分析checkpoint模式**:
-   ```python
-   result = await rag.aquery(
-       "What are the checkpoint file access patterns across jobs?",
-       param=QueryParam(mode="global")
-   )
-   ```
-
-3. **识别热点文件**:
-   ```python
-   result = await rag.aquery(
-       "Which files are accessed by the most jobs?",
-       param=QueryParam(mode="mix")
-   )
-   ```
-
-4. **导出分析**:
-   ```python
-   # 导出KG为CSV/Excel用于进一步分析
-   rag.export_data("darshan_kg_analysis.xlsx", file_format="excel")
-   ```
-
----
-
-## 📞 联系与反馈
-
-如有问题或建议，请提交Issue或PR。
-
-**Happy Querying! 🚀**
+- **Regex-based parsing**: Robust to minor format variations
+- **Type conversion**: Automatic detection of int/float/string values
+- **Memory efficient**: Streams large log files without loading entire content
+- **Batch processing**: Handles directories with hundreds of log files
+- **LightRAG compatible**: Output format exactly matches expected schema
