@@ -69,8 +69,10 @@ class DarshanKGBuilderV2:
             'nprocs': r'#\s+nprocs:\s+(\d+)',
             'runtime': r'#\s+run time:\s+([\d.]+)',
             'exe': r'#\s+exe:\s+(\w+)',
-            'start_time': r'#\s+start_time:\s+(\d+)',
-            'end_time': r'#\s+end_time:\s+(\d+)',
+            # 'start_time': r'#\s+start_time:\s+(\d+)',
+            # 'end_time': r'#\s+end_time:\s+(\d+)',
+            'start_time_asci': r'#\s+start_time_asci:\s+(.+)',
+            'end_time_asci': r'#\s+end_time_asci:\s+(.+)',
         }
 
         for key, pattern in patterns.items():
@@ -78,7 +80,8 @@ class DarshanKGBuilderV2:
             if match:
                 value = match.group(1)
                 # Convert to appropriate type
-                if key in ['job_id', 'uid', 'nprocs', 'start_time', 'end_time']:
+                # if key in ['job_id', 'uid', 'nprocs', 'start_time_asci', 'end_time_asci']:
+                if key in ['job_id', 'uid', 'nprocs']:
                     self.job_info[key] = int(value)
                 elif key in ['runtime']:
                     self.job_info[key] = float(value)
