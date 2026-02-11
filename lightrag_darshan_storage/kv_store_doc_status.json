@@ -1,0 +1,458 @@
+{
+  "doc-e26872daa5fa74f6250d4ec4a088492d": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-e26872daa5fa74f6250d4ec4a088492d"
+    ],
+    "content_summary": "STDIO\t0\t17928135386986704404\tSTDIO_OPENS\t61\t/home/3027684240\t/home\tlustre\nSTDIO\t0\t17928135386986704404\tSTDIO_FDOPENS\t0\t/home/3027684240\t/home\tlustre\nSTDIO\t0\t17928135386986704404\tSTDIO_READS\t0\t/home/3027684240\t/home\tlustre\nSTDIO\t0\t17928135386986704404...",
+    "content_length": 2531,
+    "created_at": "2026-02-10T19:27:18.213364+00:00",
+    "updated_at": "2026-02-10T19:30:28.131984+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770751776,
+      "processing_end_time": 1770751828
+    }
+  },
+  "doc-15fb05ea021283a48c45f4d34acc3cc2": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-15fb05ea021283a48c45f4d34acc3cc2"
+    ],
+    "content_summary": "STDIO\t-1\t13529246950485709101\tSTDIO_OPENS\t24\t/home/2184045533\t/home\tlustre\nSTDIO\t-1\t13529246950485709101\tSTDIO_FDOPENS\t0\t/home/2184045533\t/home\tlustre\nSTDIO\t-1\t13529246950485709101\tSTDIO_READS\t72\t/home/2184045533\t/home\tlustre\nSTDIO\t-1\t135292469504857...",
+    "content_length": 2558,
+    "created_at": "2026-02-10T19:27:18.213338+00:00",
+    "updated_at": "2026-02-10T19:30:31.473209+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770751776,
+      "processing_end_time": 1770751831
+    }
+  },
+  "doc-317df9adfe16004a22453fd990c8e171": {
+    "status": "processed",
+    "chunks_count": 4,
+    "chunks_list": [
+      "chunk-528d5dea25633ef0401c575d95e2e745",
+      "chunk-645cd9babf54137765a3767e3ae96e92",
+      "chunk-b1fb2d258d2ced507e111c519dd6d257",
+      "chunk-b0b95bdaab7a5463be27441c9b397796"
+    ],
+    "content_summary": "POSIX\t0\t10293638398140234466\tPOSIX_OPENS\t2\t/home/3264541816\t/home\tlustre\nPOSIX\t0\t10293638398140234466\tPOSIX_FILENOS\t2\t/home/3264541816\t/home\tlustre\nPOSIX\t0\t10293638398140234466\tPOSIX_DUPS\t0\t/home/3264541816\t/home\tlustre\nPOSIX\t0\t10293638398140234466\tP...",
+    "content_length": 9727,
+    "created_at": "2026-02-10T19:27:18.213343+00:00",
+    "updated_at": "2026-02-10T19:32:06.008224+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770751828,
+      "processing_end_time": 1770751926
+    }
+  },
+  "doc-e3ce2fc5d1b6c00795d3fb7968f41ea5": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-e3ce2fc5d1b6c00795d3fb7968f41ea5"
+    ],
+    "content_summary": "STDIO\t-1\t13044245517538839272\tSTDIO_OPENS\t4\t/home/3341958338\t/home\tlustre\nSTDIO\t-1\t13044245517538839272\tSTDIO_FDOPENS\t0\t/home/3341958338\t/home\tlustre\nSTDIO\t-1\t13044245517538839272\tSTDIO_READS\t12\t/home/3341958338\t/home\tlustre\nSTDIO\t-1\t1304424551753883...",
+    "content_length": 2555,
+    "created_at": "2026-02-10T19:27:18.213322+00:00",
+    "updated_at": "2026-02-10T19:31:06.538108+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770751831,
+      "processing_end_time": 1770751866
+    }
+  },
+  "doc-6e71b7d78d26e620fed39e74ae48b74f": {
+    "status": "processed",
+    "chunks_count": 3,
+    "chunks_list": [
+      "chunk-a74b6f54f16f3da776f7694c1a7e0501",
+      "chunk-d7ea49fbea4a87dcaffeb7a7f7c2a153",
+      "chunk-b485ee32054b233f2c27d030bf5b8657"
+    ],
+    "content_summary": "POSIX\t-1\t16557526096605665308\tPOSIX_OPENS\t152\t/home/727026018\t/home\tlustre\nPOSIX\t-1\t16557526096605665308\tPOSIX_FILENOS\t152\t/home/727026018\t/home\tlustre\nPOSIX\t-1\t16557526096605665308\tPOSIX_DUPS\t0\t/home/727026018\t/home\tlustre\nPOSIX\t-1\t16557526096605665...",
+    "content_length": 7232,
+    "created_at": "2026-02-10T19:27:18.213370+00:00",
+    "updated_at": "2026-02-10T19:32:03.436602+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770751866,
+      "processing_end_time": 1770751923
+    }
+  },
+  "doc-6f799761ac0cc9c8dcbb4d6bce3e2966": {
+    "status": "processed",
+    "chunks_count": 10,
+    "chunks_list": [
+      "chunk-660f691271e04539dc44127c92d3eb4f",
+      "chunk-a7ed5babc74d2ab8e5222f9c54873a6e",
+      "chunk-51f6caf675443f827c7616892b780f67",
+      "chunk-2989e99af480eb4708bc4ac03c6fb45e",
+      "chunk-90753f45e68b34a552608e25999bedeb",
+      "chunk-e9956075e28187125270ad2069afaad4",
+      "chunk-440719e1910377eed8b9f5d0b0006af4",
+      "chunk-a04c1de6286608016d3fb66686bc8c2b",
+      "chunk-de26e1588d949f907b8a5c0d0f44575e",
+      "chunk-fc3b6d72ce25cdd729fd747e24865c29"
+    ],
+    "content_summary": "HEATMAP\t3\t16592106915301738621\tHEATMAP_F_BIN_WIDTH_SECONDS\t51.200000\theatmap:POSIX\tUNKNOWN\tUNKNOWN\nHEATMAP\t3\t16592106915301738621\tHEATMAP_READ_BIN_0\t1049304\theatmap:POSIX\tUNKNOWN\tUNKNOWN\nHEATMAP\t3\t16592106915301738621\tHEATMAP_READ_BIN_1\t0\theatmap:POS...",
+    "content_length": 24558,
+    "created_at": "2026-02-10T19:27:18.213348+00:00",
+    "updated_at": "2026-02-10T19:36:17.242869+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770751923,
+      "processing_end_time": 1770752177
+    }
+  },
+  "doc-2f583915e7ce00a97f5623bb2e14220a": {
+    "status": "processed",
+    "chunks_count": 10,
+    "chunks_list": [
+      "chunk-ccbfb23ba53d21bb999c26787e89ee77",
+      "chunk-8e2c93f61efebffec820f9c857e4612b",
+      "chunk-4e4d0a6ee80fd0648250b635f37a22d5",
+      "chunk-854ec3ea2f4c253c16bfb5f61a4061ae",
+      "chunk-1941e6176f40d5fe65a08907b810acb0",
+      "chunk-f2a0e58e74bf00bb19c02bf378980165",
+      "chunk-b7e8c9ba9e9b598460beed6aa4f16ece",
+      "chunk-53c8c13c719f8793b6d4ed27776495d7",
+      "chunk-d14d4ad2e22049043251e1e69acf3c69",
+      "chunk-ca24a6297def8e650d075e8724dc00da"
+    ],
+    "content_summary": "HEATMAP\t0\t16592106915301738621\tHEATMAP_F_BIN_WIDTH_SECONDS\t51.200000\theatmap:POSIX\tUNKNOWN\tUNKNOWN\nHEATMAP\t0\t16592106915301738621\tHEATMAP_READ_BIN_0\t1056203\theatmap:POSIX\tUNKNOWN\tUNKNOWN\nHEATMAP\t0\t16592106915301738621\tHEATMAP_READ_BIN_1\t0\theatmap:POS...",
+    "content_length": 24558,
+    "created_at": "2026-02-10T19:27:18.213296+00:00",
+    "updated_at": "2026-02-10T19:37:02.652703+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770751926,
+      "processing_end_time": 1770752222
+    }
+  },
+  "doc-1142f95361cd2cf3a53ed4da7bb08b97": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-1142f95361cd2cf3a53ed4da7bb08b97"
+    ],
+    "content_summary": "STDIO\t-1\t13283957409838482174\tSTDIO_OPENS\t4\t/home/365049253\t/home\tlustre\nSTDIO\t-1\t13283957409838482174\tSTDIO_FDOPENS\t0\t/home/365049253\t/home\tlustre\nSTDIO\t-1\t13283957409838482174\tSTDIO_READS\t12\t/home/365049253\t/home\tlustre\nSTDIO\t-1\t1328395740983848217...",
+    "content_length": 2535,
+    "created_at": "2026-02-10T19:27:18.213359+00:00",
+    "updated_at": "2026-02-10T19:36:54.031272+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752177,
+      "processing_end_time": 1770752214
+    }
+  },
+  "doc-888e207be07ff5026118a031c0c40e92": {
+    "status": "processed",
+    "chunks_count": 28,
+    "chunks_list": [
+      "chunk-a33aaebff7984489bc410a83824648ec",
+      "chunk-b44eb9142268bd7d7f95ba37d9e9b9ef",
+      "chunk-325a1751257ef49c7c6d5d38ee435c6d",
+      "chunk-baf217a1de4bb28f5427d74382f63212",
+      "chunk-2adbe4bd672228599f1f014bb3e010bb",
+      "chunk-3d1fdb4d6dc023584719588b5667ceae",
+      "chunk-a53cf64f06c7118922c60195c058fd5f",
+      "chunk-8bc8959e3a77b45a878bc790d4d1218d",
+      "chunk-0ce0ef7d3bfe794298078ef3a8e1e274",
+      "chunk-58e2c957245e4825f9adf64a15739e2f",
+      "chunk-6a17398e30901d736f51156bcc377670",
+      "chunk-4391fc3dec263bfd3a3176e54e4e5fa0",
+      "chunk-aeba340543a9b1d2b860fcc2ad5f6063",
+      "chunk-4b501d4581b834fc7b4ea10c2518188a",
+      "chunk-dcc10990b7b9ef1cbd73d29dccdc02d3",
+      "chunk-47faa0bb0b1199d4c29e9f284f138529",
+      "chunk-01ccdc122b117b5533ded3ea6e138ea3",
+      "chunk-10300dcc81e8632929fddcbf5e5d331d",
+      "chunk-7bb946b241f142dfde62a340bc91eb73",
+      "chunk-bf631b5ffe664e1a26c1b307c8da28d3",
+      "chunk-fd010d55e95a8d83eea645132d7b4574",
+      "chunk-e3ccca52003c05a68be0a738a437cdef",
+      "chunk-e0e383c8a7df8c95bc2719644225b588",
+      "chunk-f038881319023c3603403a68c57b1b53",
+      "chunk-14b3048f6c28f2696f910d56b549d830",
+      "chunk-ecf7bac9407384e8370fb91285710994",
+      "chunk-8ee922b40f923a8f2535f752796179d2",
+      "chunk-9de5ff6dedee5e9af554a4b7c470cf44"
+    ],
+    "content_summary": "POSIX\t0\t10166465462036786034\tPOSIX_OPENS\t2\t/home/3144406748\t/home\tlustre\nPOSIX\t0\t10166465462036786034\tPOSIX_FILENOS\t2\t/home/3144406748\t/home\tlustre\nPOSIX\t0\t10166465462036786034\tPOSIX_DUPS\t0\t/home/3144406748\t/home\tlustre\nPOSIX\t0\t10166465462036786034\tP...",
+    "content_length": 72476,
+    "created_at": "2026-02-10T19:27:18.213354+00:00",
+    "updated_at": "2026-02-10T19:46:53.008672+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752214,
+      "processing_end_time": 1770752813
+    }
+  },
+  "doc-94559ed7d2f35cac29087246495a447c": {
+    "status": "processed",
+    "chunks_count": 3,
+    "chunks_list": [
+      "chunk-0873a770de7e2348f16c2e29d1daee77",
+      "chunk-2587738759fbd0f14002dcf949c9c405",
+      "chunk-9d605921f941fd839038751b1940428f"
+    ],
+    "content_summary": "POSIX\t-1\t8201223630379683069\tPOSIX_OPENS\t24\t/home/1814946430\t/home\tlustre\nPOSIX\t-1\t8201223630379683069\tPOSIX_FILENOS\t24\t/home/1814946430\t/home\tlustre\nPOSIX\t-1\t8201223630379683069\tPOSIX_DUPS\t0\t/home/1814946430\t/home\tlustre\nPOSIX\t-1\t8201223630379683069...",
+    "content_length": 7244,
+    "created_at": "2026-02-10T19:27:18.213408+00:00",
+    "updated_at": "2026-02-10T19:38:35.207206+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752222,
+      "processing_end_time": 1770752315
+    }
+  },
+  "doc-4b556d2ba176cf64bb472b389fc721bd": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-4b556d2ba176cf64bb472b389fc721bd"
+    ],
+    "content_summary": "STDIO\t-1\t2927291011469766514\tSTDIO_OPENS\t4\t/home/337777053\t/home\tlustre\nSTDIO\t-1\t2927291011469766514\tSTDIO_FDOPENS\t0\t/home/337777053\t/home\tlustre\nSTDIO\t-1\t2927291011469766514\tSTDIO_READS\t12\t/home/337777053\t/home\tlustre\nSTDIO\t-1\t2927291011469766514\tST...",
+    "content_length": 2497,
+    "created_at": "2026-02-10T19:27:18.213376+00:00",
+    "updated_at": "2026-02-10T19:39:25.435256+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752315,
+      "processing_end_time": 1770752365
+    }
+  },
+  "doc-0620c5dd8a9df2551f2673960c585976": {
+    "status": "processed",
+    "chunks_count": 10,
+    "chunks_list": [
+      "chunk-451bed18a04eca597da2019701a02926",
+      "chunk-100c34df40402c5189e16a88411d143e",
+      "chunk-eca57398cc2212c1409c2cc76ffdc6c7",
+      "chunk-8bc0918782cca65394a25647c0775405",
+      "chunk-fadb74b05b01a2be74d018acd6688f1a",
+      "chunk-b0ae4528a0c225a384cb4d863e84aeac",
+      "chunk-a77105db9cafd2c927e91fd1afe5ab8e",
+      "chunk-8d35a9f67a22f05af2a6849cf4cd29fd",
+      "chunk-1bdbca0f55b002ee0a07dde6e0f1c169",
+      "chunk-7f1c2b0d20137cfe3a051eaffa14b08c"
+    ],
+    "content_summary": "HEATMAP\t1\t3989511027826779520\tHEATMAP_F_BIN_WIDTH_SECONDS\t51.200000\theatmap:STDIO\tUNKNOWN\tUNKNOWN\nHEATMAP\t1\t3989511027826779520\tHEATMAP_READ_BIN_0\t808310\theatmap:STDIO\tUNKNOWN\tUNKNOWN\nHEATMAP\t1\t3989511027826779520\tHEATMAP_READ_BIN_1\t0\theatmap:STDIO\tU...",
+    "content_length": 24264,
+    "created_at": "2026-02-10T19:27:18.213397+00:00",
+    "updated_at": "2026-02-10T19:43:31.798464+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752365,
+      "processing_end_time": 1770752611
+    }
+  },
+  "doc-aefb85a41a5bd721c92dadb8948d403c": {
+    "status": "processed",
+    "chunks_count": 48,
+    "chunks_list": [
+      "chunk-a33aaebff7984489bc410a83824648ec",
+      "chunk-b44eb9142268bd7d7f95ba37d9e9b9ef",
+      "chunk-325a1751257ef49c7c6d5d38ee435c6d",
+      "chunk-baf217a1de4bb28f5427d74382f63212",
+      "chunk-2adbe4bd672228599f1f014bb3e010bb",
+      "chunk-3d1fdb4d6dc023584719588b5667ceae",
+      "chunk-a53cf64f06c7118922c60195c058fd5f",
+      "chunk-8bc8959e3a77b45a878bc790d4d1218d",
+      "chunk-0ce0ef7d3bfe794298078ef3a8e1e274",
+      "chunk-58e2c957245e4825f9adf64a15739e2f",
+      "chunk-6a17398e30901d736f51156bcc377670",
+      "chunk-4391fc3dec263bfd3a3176e54e4e5fa0",
+      "chunk-aeba340543a9b1d2b860fcc2ad5f6063",
+      "chunk-4b501d4581b834fc7b4ea10c2518188a",
+      "chunk-dcc10990b7b9ef1cbd73d29dccdc02d3",
+      "chunk-47faa0bb0b1199d4c29e9f284f138529",
+      "chunk-01ccdc122b117b5533ded3ea6e138ea3",
+      "chunk-10300dcc81e8632929fddcbf5e5d331d",
+      "chunk-7bb946b241f142dfde62a340bc91eb73",
+      "chunk-bf631b5ffe664e1a26c1b307c8da28d3",
+      "chunk-fd010d55e95a8d83eea645132d7b4574",
+      "chunk-e3ccca52003c05a68be0a738a437cdef",
+      "chunk-e0e383c8a7df8c95bc2719644225b588",
+      "chunk-f038881319023c3603403a68c57b1b53",
+      "chunk-14b3048f6c28f2696f910d56b549d830",
+      "chunk-ecf7bac9407384e8370fb91285710994",
+      "chunk-8ee922b40f923a8f2535f752796179d2",
+      "chunk-ca6258fe505c6189cf7cc1af2a995c96",
+      "chunk-f71cff0a77f186fe6f90b87ef4a63b2b",
+      "chunk-a92b2e6ab3147cc742e1258c2cfc1579",
+      "chunk-9d7d655ab1624c9df84febfb01e81322",
+      "chunk-93e36987ecad87791b85ab1571b4b8ee",
+      "chunk-d93aa6d0240e1b7ae1b7ea82e6621975",
+      "chunk-bad3c28789c82c918a0f5f45b8fb29cf",
+      "chunk-f37a9d678b5970ded97f976047153396",
+      "chunk-68299adc352f158970714eae74fd9ada",
+      "chunk-d4ea9af6a4dc3f6cce81ca7ffe2992db",
+      "chunk-14b3912a8bbf4c9796ad0b9cd43e09ca",
+      "chunk-53c98c7b1971760067cbcc54e5d6385f",
+      "chunk-e15a8ce2850c7aaf4a9acca2e0b706a6",
+      "chunk-b7620c5ef7843694889c64f0269658f6",
+      "chunk-38a1bef5c5f8009a3e02ec419684e56d",
+      "chunk-d1c8f40252a1ea9a98f9c48f74dc68ca",
+      "chunk-8a962c755e63e8f897bcbc655c2c2407",
+      "chunk-7264b42b7384ad1667816fccee8241f0",
+      "chunk-b78bf53213069139f06c472cab7c659e",
+      "chunk-8421105bcae931522df113b476a9e3fe",
+      "chunk-473850b42d9a7215aab51caca4a6ceab"
+    ],
+    "content_summary": "POSIX\t0\t10166465462036786034\tPOSIX_OPENS\t2\t/home/3144406748\t/home\tlustre\nPOSIX\t0\t10166465462036786034\tPOSIX_FILENOS\t2\t/home/3144406748\t/home\tlustre\nPOSIX\t0\t10166465462036786034\tPOSIX_DUPS\t0\t/home/3144406748\t/home\tlustre\nPOSIX\t0\t10166465462036786034\tP...",
+    "content_length": 128025,
+    "created_at": "2026-02-10T19:27:18.213402+00:00",
+    "updated_at": "2026-02-10T19:53:55.038326+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752612,
+      "processing_end_time": 1770753235
+    }
+  },
+  "doc-e23a1b84e82aaf9ab7a7a58bb681761a": {
+    "status": "processed",
+    "chunks_count": 4,
+    "chunks_list": [
+      "chunk-d6e28f64007367e1e21f4eda02e79e88",
+      "chunk-fe987be523e8c723d6639712e83d0487",
+      "chunk-507e34671dd3d349c85fc4d0f5f038ae",
+      "chunk-a92de2401236930c509b97f3ce03afe6"
+    ],
+    "content_summary": "POSIX\t-1\t6729609248338289751\tPOSIX_OPENS\t116\t/home/3264245092\t/home\tlustre\nPOSIX\t-1\t6729609248338289751\tPOSIX_FILENOS\t116\t/home/3264245092\t/home\tlustre\nPOSIX\t-1\t6729609248338289751\tPOSIX_DUPS\t0\t/home/3264245092\t/home\tlustre\nPOSIX\t-1\t67296092483382897...",
+    "content_length": 9768,
+    "created_at": "2026-02-10T19:27:18.213310+00:00",
+    "updated_at": "2026-02-10T19:48:29.889750+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752813,
+      "processing_end_time": 1770752909
+    }
+  },
+  "doc-25b4b97752d1312166b70cc543775d41": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-25b4b97752d1312166b70cc543775d41"
+    ],
+    "content_summary": "STDIO\t-1\t16557526096605665308\tSTDIO_OPENS\t76\t/home/727026018\t/home\tlustre\nSTDIO\t-1\t16557526096605665308\tSTDIO_FDOPENS\t0\t/home/727026018\t/home\tlustre\nSTDIO\t-1\t16557526096605665308\tSTDIO_READS\t152\t/home/727026018\t/home\tlustre\nSTDIO\t-1\t16557526096605665...",
+    "content_length": 2531,
+    "created_at": "2026-02-10T19:27:18.213327+00:00",
+    "updated_at": "2026-02-10T19:49:42.320169+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752910,
+      "processing_end_time": 1770752982
+    }
+  },
+  "doc-1e3673ec162763e587d84b2ef6f287d5": {
+    "status": "processed",
+    "chunks_count": 3,
+    "chunks_list": [
+      "chunk-d6e28f64007367e1e21f4eda02e79e88",
+      "chunk-fe987be523e8c723d6639712e83d0487",
+      "chunk-fe81e6ff2ee5464b8da1d55850ab2ad2"
+    ],
+    "content_summary": "POSIX\t-1\t6729609248338289751\tPOSIX_OPENS\t116\t/home/3264245092\t/home\tlustre\nPOSIX\t-1\t6729609248338289751\tPOSIX_FILENOS\t116\t/home/3264245092\t/home\tlustre\nPOSIX\t-1\t6729609248338289751\tPOSIX_DUPS\t0\t/home/3264245092\t/home\tlustre\nPOSIX\t-1\t67296092483382897...",
+    "content_length": 7255,
+    "created_at": "2026-02-10T19:27:18.213333+00:00",
+    "updated_at": "2026-02-10T19:50:23.797663+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770752982,
+      "processing_end_time": 1770753023
+    }
+  },
+  "doc-c3499ca24d23ec41af9396b16f454059": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-c3499ca24d23ec41af9396b16f454059"
+    ],
+    "content_summary": "STDIO\t0\t14789769613454102712\tSTDIO_OPENS\t1\t/home/387995587\t/home\tlustre\nSTDIO\t0\t14789769613454102712\tSTDIO_FDOPENS\t0\t/home/387995587\t/home\tlustre\nSTDIO\t0\t14789769613454102712\tSTDIO_READS\t0\t/home/387995587\t/home\tlustre\nSTDIO\t0\t14789769613454102712\tSTD...",
+    "content_length": 2509,
+    "created_at": "2026-02-10T19:27:18.213392+00:00",
+    "updated_at": "2026-02-10T19:53:15.702472+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770753024,
+      "processing_end_time": 1770753195
+    }
+  },
+  "doc-d34076e80b8717c53c0c213f8bb91d8a": {
+    "status": "processed",
+    "chunks_count": 4,
+    "chunks_list": [
+      "chunk-03c10a3947e46eb7766bf0a384281852",
+      "chunk-073de3cb4d14183696c0555e9337083e",
+      "chunk-f0782cf2dcc8a96642495aa5d53df68d",
+      "chunk-7a4d278dbdf94a1f279d8eee6be48bdf"
+    ],
+    "content_summary": "POSIX\t0\t13940160602246236818\tPOSIX_OPENS\t2\t/home/392142400\t/home\tlustre\nPOSIX\t0\t13940160602246236818\tPOSIX_FILENOS\t2\t/home/392142400\t/home\tlustre\nPOSIX\t0\t13940160602246236818\tPOSIX_DUPS\t0\t/home/392142400\t/home\tlustre\nPOSIX\t0\t13940160602246236818\tPOSI...",
+    "content_length": 9604,
+    "created_at": "2026-02-10T19:27:18.213316+00:00",
+    "updated_at": "2026-02-10T19:54:43.482794+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770753195,
+      "processing_end_time": 1770753283
+    }
+  },
+  "doc-b6b48c548fdac5fdf6006ba16b05e6e4": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-b6b48c548fdac5fdf6006ba16b05e6e4"
+    ],
+    "content_summary": "STDIO\t-1\t14671607098206419688\tSTDIO_OPENS\t24\t/home/970291540\t/home\tlustre\nSTDIO\t-1\t14671607098206419688\tSTDIO_FDOPENS\t0\t/home/970291540\t/home\tlustre\nSTDIO\t-1\t14671607098206419688\tSTDIO_READS\t72\t/home/970291540\t/home\tlustre\nSTDIO\t-1\t146716070982064196...",
+    "content_length": 2529,
+    "created_at": "2026-02-10T19:27:18.213386+00:00",
+    "updated_at": "2026-02-10T19:54:38.153716+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770753235,
+      "processing_end_time": 1770753278
+    }
+  },
+  "doc-58b9804d973185166e8e27b93d971864": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-58b9804d973185166e8e27b93d971864"
+    ],
+    "content_summary": "STDIO\t-1\t3095093971924507413\tSTDIO_OPENS\t4\t/home/1212668796\t/home\tlustre\nSTDIO\t-1\t3095093971924507413\tSTDIO_FDOPENS\t0\t/home/1212668796\t/home\tlustre\nSTDIO\t-1\t3095093971924507413\tSTDIO_READS\t0\t/home/1212668796\t/home\tlustre\nSTDIO\t-1\t3095093971924507413\t...",
+    "content_length": 2555,
+    "created_at": "2026-02-10T19:27:18.213381+00:00",
+    "updated_at": "2026-02-10T19:55:15.723606+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260210_122718_c335d756",
+    "metadata": {
+      "processing_start_time": 1770753278,
+      "processing_end_time": 1770753315
+    }
+  }
+}
